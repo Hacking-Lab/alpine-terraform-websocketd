@@ -25,3 +25,7 @@ else
     echo "`date`: Azure login NOT available." | tee -a /terraform/logs/az.log
     exit 1
 fi
+
+# Select subscription to use
+subscription_id=`grep '^subscription_id' /terraform/terraform.tfvars | grep  -o '"[0-9a-z\-]*"' | cut -d '"' -f2`
+az account set --subscription $subscription_id
