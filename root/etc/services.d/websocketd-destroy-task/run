@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv sh
+#!/command/with-contenv sh
 
 echo "starting destroy websocketd"
 exec /usr/bin/websocketd -port=8085 -address=127.0.0.1 /opt/scripts/destroy-task

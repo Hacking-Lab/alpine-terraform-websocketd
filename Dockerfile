@@ -3,7 +3,7 @@ ENV CGO_ENABLED 0
 RUN go install github.com/ibuetler/websocketd@latest
 
 
-FROM hackinglab/alpine-base:3.2
+FROM hackinglab/alpine-base-hl:3.2
 LABEL maintainer=<ivan.buetler@compass-security.com>
 
 ENV TERRAFORM_VERSION=0.15.3
@@ -24,13 +24,11 @@ RUN apk add --no-cache --update nginx \
     openssh \
     python3 \
     proxychains-ng \
-    py-pip && \
+    py3-pip && \
     if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && \
     \
     echo "**** install pip ****" && \
-    python3 -m ensurepip && \
-    rm -r /usr/lib/python*/ensurepip && \
-    pip3 install --no-cache --upgrade pip setuptools wheel && \
+    pip3 install --no-cache --upgrade pip setuptools wheel --break-system-packages && \
     if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
 	curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o /tmp/awscliv2.zip  && \
 	unzip /tmp/awscliv2.zip -d /opt/ && \
@@ -63,10 +61,10 @@ RUN apk add --no-cache --update \
     make \
     python3-dev && \
     \
-    pip3 install virtualenv && \
+    pip3 install virtualenv --break-system-packages && \
     \
     python3 -m virtualenv /opt/azure-cli && \
-    /opt/azure-cli/bin/python -m pip --no-cache-dir install azure-cli packaging azure-mgmt-resource && \
+    /opt/azure-cli/bin/python -m pip --no-cache-dir install azure-cli packaging azure-mgmt-resource --break-system-packages && \
     chmod +x /usr/bin/az && \
     \
     apk del build && \
