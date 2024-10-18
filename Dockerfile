@@ -4,7 +4,7 @@ RUN go install github.com/ibuetler/websocketd@latest
 
 
 FROM hackinglab/alpine-base-hl:3.2
-LABEL maintainer=<ivan.buetler@compass-security.com>
+LABEL maintainer=<ivan.buetler@hacking-lab.com>
 
 ENV TERRAFORM_VERSION=0.15.3
 
